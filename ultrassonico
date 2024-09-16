@@ -1,0 +1,47 @@
+const int pinoTrig = 6;
+const int pinoEcho = 7;
+const int pinoLedVermelho = 10;
+const int pinoLedAmarelo = 9;
+const int pinoLedVerde = 8;
+
+void setup() {
+  pinMode(pinoLedVermelho, OUTPUT);
+  pinMode(pinoLedAmarelo, OUTPUT);
+  pinMode(pinoLedVerde, OUTPUT);
+  pinMode(pinoTrig, OUTPUT);
+  pinMode(pinoEcho, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(pinoTrig, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(pinoTrig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pinoTrig, LOW);
+
+  long duracao = pulseIn(pinoEcho, HIGH);
+  float distancia = duracao * 0.0344 / 2;
+
+  Serial.print("Distância: ");
+  Serial.print(distancia);
+  Serial.println(" cm");
+
+  if (distancia < 10) {
+    digitalWrite(pinoLedVermelho, HIGH);
+    digitalWrite(pinoLedAmarelo, LOW);
+    digitalWrite(pinoLedVerde, LOW);
+  } else if (distancia < 20) {
+    digitalWrite(pinoLedVermelho, LOW);
+    digitalWrite(pinoLedAmarelo, HIGH);
+    digitalWrite(pinoLedVerde, LOW);
+  } else {
+    digitalWrite(pinoLedVermelho, LOW);
+    digitalWrite(pinoLedAmarelo, LOW);
+    digitalWrite(pinoLedVerde, HIGH);
+  }
+
+  delay(500);
+}
+
