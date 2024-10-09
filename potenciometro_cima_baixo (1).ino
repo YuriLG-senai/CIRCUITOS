@@ -7,9 +7,9 @@ void loop() {
   int yValue = analogRead(A1);
 
   if (yValue < 341) {
-    Serial.println("Para cima");
-  } else if (yValue > 682) {
     Serial.println("Para baixo");
+  } else if (yValue > 682) {
+    Serial.println("Para cima");
   } else {
     Serial.println("Centralizado");
   }
